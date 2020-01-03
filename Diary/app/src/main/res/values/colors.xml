@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F2F2F2</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#E3CEF6</color>
+    <color name="background">#FAFAFA</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#E6E6E6</color>
+    <color name="darkGray">#585858</color>
+
+    <color name="holiday">#FA5882</color>
+    <color name="Saturday">#58ACFA</color>
+
+
+
+</resources>
