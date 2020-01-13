@@ -46,7 +46,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                         finish();
                         break;
                     case 1://알람
-                        Intent intent2 = new Intent(view.getContext(), AlramActivity.class);
+                        Intent intent2 = new Intent(view.getContext(), AlarmActivity.class);
                         startActivity(intent2);
                         finish();
                         break;
