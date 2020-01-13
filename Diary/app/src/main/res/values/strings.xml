@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Diary</string>
+
+    <string-array name="defalt_questrons">
+        <item>자유 일기</item>
+        <item>오늘은 어떤 일이 있었나요?</item>
+        <item>깜빡했던 일은 없었나요?</item>
+        <item>식사는 어땠나요?</item>
+        <item>오늘 가장 기쁜 일은 무엇이었나요?</item>
+        <item>슬프고 우울한 기분을 떨쳐내는 나만의 방법이 있나요?</item>
+        <item>오늘 가장 귀찮았던 일은 무었이었나요?</item>
+        <item>오늘 하루 돈을 어디에 썼나요?</item>
+    </string-array>
+
+    <string-array name="setting_item">
+        <item>내 정보 보기</item>
+        <item>알람</item>
+    </string-array>
+
 </resources>

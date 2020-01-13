@@ -18,30 +18,41 @@
                     android:id="@+id/btn_convertView"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/convert"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp" />
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp" />
 
                 <DatePicker
                     android:id="@+id/dp_fixedPicker"
-                    android:layout_toRightOf="@+id/btn_convertView"
-                    android:layout_width="wrap_content"
+                    style="@android:style/Widget.DatePicker"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/btn_convertView"
+                    android:layout_toLeftOf="@+id/btn_datemove"
                     android:calendarViewShown="false"
                     android:datePickerMode="spinner" />
+
+                <Button
+                    android:id="@+id/btn_datemove"
+                    android:layout_toLeftOf="@+id/btn_setting"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/colorPrimary"
+                    android:text="GO"
+                    android:textColor="@color/darkGray"/>
 
                 <ImageButton
                     android:id="@+id/btn_setting"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="10dp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/setting"/>
 
