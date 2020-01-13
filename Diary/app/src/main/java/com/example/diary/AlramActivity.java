@@ -9,6 +9,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+
 public class AlramActivity extends Activity implements View.OnClickListener {
 
     TextView tv_title;
@@ -36,7 +37,7 @@ public class AlramActivity extends Activity implements View.OnClickListener {
         item = getResources().getStringArray(R.array.setting_item);
 
         backArrow.setOnClickListener(this);
-        tv_title.setText(item[2]);
+        tv_title.setText(item[1]);
     }
 
     @Override

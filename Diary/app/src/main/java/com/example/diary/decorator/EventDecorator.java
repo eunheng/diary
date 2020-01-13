@@ -1,9 +1,7 @@
 package com.example.diary.decorator;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 
-import com.example.diary.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;

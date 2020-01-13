@@ -39,7 +39,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener {
 
         backArrow.setOnClickListener(this);
         btn_disconnect.setOnClickListener(this);
-        tv_title.setText(item[1]);
+        tv_title.setText(item[0]);
     }
 
     @Override
