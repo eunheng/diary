@@ -11,18 +11,30 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+import com.example.diary.ServerCommunication.ClientCommunication;
+import com.example.diary.ServerCommunication.ClientConnectionAPI;
+
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener  {
     private EditText et_userID,et_coupleID;
     private Button btn_start,btn_solo,btn_couple;
     private LinearLayout coupleLayout;
-
     private Context mContext = LoginActivity.this;
+    private ClientConnectionAPI Con = ClientConnectionAPI.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Runnable Connect = Con;
+        Thread Connection = new Thread(Connect);
+        Connection.start();
         init();
+
+        ClientCommunication RecvThread = new ClientCommunication(Con.ServerSocket);
+        Runnable Recv = RecvThread;
+        Thread RecvStart = new Thread(Recv);
+        RecvStart.start();
+
     }
 
     private void init() {
