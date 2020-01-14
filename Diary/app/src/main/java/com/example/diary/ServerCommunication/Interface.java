@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Interface implements Serializable {
 
@@ -44,17 +45,17 @@ public class Interface implements Serializable {
 
     }
 
-    public void NoticeRegistQeustion() //Type 15
+    public void NoticeRegistQeustion(ArrayList DiaryList) //Type 15
     {
 
     }
 
-    public void NoticeReFlashDiary() //Type 16
+    public void NoticeReFlashDiary(ArrayList DiaryList) //Type 16
     {
 
     }
 
-    public void NoticeInitializeDiary() //Type 17
+    public void NoticeInitializeDiary(ArrayList DiaryList) //Type 17
     {
 
     }

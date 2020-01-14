@@ -33,7 +33,7 @@ public class Sender implements Runnable , Serializable{
             B = SerializationUtils.serialize((Serializable)Data);
             ObjectOutputStream oos;
             oos = new ObjectOutputStream(ClientConnectionAPI.getInstance().ServerSocket.getOutputStream());
-            oos.writeObject(B);
+             oos.writeObject(B);
             oos.flush();
 
         } catch (IOException e) {

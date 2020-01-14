@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.btn_couple:
-                coupleID = et_userID.getText().toString();
+                coupleID = et_coupleID.getText().toString();
                 if (nullCheck(coupleID)){
                     Toast.makeText(mContext, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                 }else {

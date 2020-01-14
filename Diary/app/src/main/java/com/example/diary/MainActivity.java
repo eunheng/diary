@@ -75,9 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = getIntent();
         if(intent != null){
             myID = intent.getStringExtra("myID");
-            coupleID = intent.getStringExtra("coupleID");
-            if (coupleID.isEmpty()){
-                //커플 아이디 없을 경우
+            if (intent.getStringExtra("coupleID")!=null){
+                coupleID = intent.getStringExtra("coupleID");
                 coupleID = "Null";
             }
         }
