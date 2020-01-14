@@ -55,11 +55,11 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
     private int dpYear, dpMonth, dpDay;
     private Calendar calendar;
     private String[] myQuestions, myDiarys,coupleQuestions,coupleDiarys;
-    private String question, diary;
+    private String myQuestion, myDiary,coupleQuestion,coupleDiary;
     private ArrayAdapter<String> questionAdpater;
     private String[] questionList;
     private int btnDone=8,btnEdit=0;
-    private String myID, coupleID;
+    private String myID, coupleID=null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,7 +109,7 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
         sp_question.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                question = questionList[i];
+                myQuestion = questionList[i];
             }
 
             @Override
@@ -160,16 +160,27 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
             dpDay = day;
             calendar.set(year,month,day);
             dp_fixedPicker.updateDate(year,month,year);
-            myQuestions =
-            questions = intent.getStringArrayExtra("questions");
-            diarys = intent.getStringArrayExtra("diarys");
             tv_day.setText(String.valueOf(year)+"년 "+String.valueOf(month+1)+"월 "+String.valueOf(day)+"일");
-            if (!TextUtils.isEmpty(diarys[day-1]))
+            myID = intent.getStringExtra("myID");
+            tv_myID.setText(myID);
+            myQuestions = intent.getStringArrayExtra("myQuestions");
+            myDiarys = intent.getStringArrayExtra("myDiarys");
+            if (!TextUtils.isEmpty(myDiarys[day-1]))
             {
-                et_diary.setText(diarys[day-1]);
+                et_diary.setText(myDiarys[day-1]);
                 for (int i=0; i<questionList.length; i++)
-                    if (questionList[i].equals(questions[day-1]))
+                    if (questionList[i].equals(myQuestions[day-1]))
                         sp_question.setSelection(i);
+            }
+            coupleID = intent.getStringExtra("coupleID");
+            if (coupleID!=null){
+                coupleLayout.setVisibility(View.VISIBLE);
+                coupleQuestions = intent.getStringArrayExtra("coupleQuestions");
+                coupleDiarys = intent.getStringArrayExtra("coupleDiarys");
+                if (!TextUtils.isEmpty(coupleDiarys[day-1]))
+                    tv_diary.setText(coupleQuestions[day-1]+"\n"+coupleDiarys[day-1]);
+            }else{
+                coupleLayout.setVisibility(View.GONE);
             }
 
         }
@@ -203,25 +214,41 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
 
     private void updateDiary(int year, int month, int day){
         int key = 1;
-        
+        tv_day.setText(String.valueOf(year)+"년 "+String.valueOf(month+1)+"월 "+String.valueOf(day)+"일");
         if (!((year==this.year)||(month==this.month)))
         {
             diaryAdapter = new DiaryAdapter(key,myID,coupleID,year,month,day);
-            questions = diaryAdapter.questions;
-            diarys = diaryAdapter.diarys;
-            question = diaryAdapter.questions[day-1];
-            diary = diaryAdapter.diarys[day-1];
+            myQuestions = diaryAdapter.myQuestions;
+            myDiarys = diaryAdapter.myDiarys;
+            myQuestion = diaryAdapter.myQuestions[day-1];
+            myDiary = diaryAdapter.myDiarys[day-1];
+            if(coupleID!=null){
+                coupleQuestions = diaryAdapter.coupleQuestions;
+                coupleDiarys = diaryAdapter.coupleDiarys;
+                coupleQuestion = diaryAdapter.coupleQuestions[day-1];
+                coupleDiary = diaryAdapter.coupleDiarys[day-1];
+            }
         }else {
-            question = questions[day-1];
-            diary = diarys[day-1];
+            myQuestion = myQuestions[day-1];
+            myDiary = myDiarys[day-1];
+            if(coupleID!=null){
+                coupleQuestion = coupleQuestions[day-1];
+                coupleDiary = coupleDiarys[day-1];
+            }
+
         }
-        tv_day.setText(String.valueOf(year)+"년 "+String.valueOf(month+1)+"월 "+String.valueOf(day)+"일");
-        if (!TextUtils.isEmpty(diary))
+
+        if (!TextUtils.isEmpty(myDiary))
         {
-            et_diary.setText(diary);
+            et_diary.setText(myDiary);
             for (int i=0; i<questionList.length; i++)
-                if (questionList[i].equals(questions[day-1]))
+                if (questionList[i].equals(myQuestions[day-1]))
                     sp_question.setSelection(i);
+        }
+
+        if (coupleID!=null) {
+            if (!TextUtils.isEmpty(coupleDiarys[day-1]))
+                tv_diary.setText(coupleQuestions[day-1]+"\n"+coupleDiarys[day-1]);
         }
 
     }
@@ -231,7 +258,7 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
         mDiary.setYear(year);
         mDiary.setMonth(month);
         mDiary.setDay(day);
-        mDiary.setQuestion(question);
+        mDiary.setQuestion(myQuestion);
         mDiary.setText(et_diary.getText().toString());
     }
 
@@ -262,21 +289,6 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
                 btn_done.setTextColor(getResources().getColor(R.color.white));
                 btn_edit.setEnabled(true);
                 btn_edit.setTextColor(getResources().getColor(R.color.darkGray));**/
-
-                /** TODO 서버로 처음 저장
-                Realm realm = Realm.getDefaultInstance();
-                realm.executeTransaction(new Realm.Transaction(){
-
-                    @Override
-                    public void execute(Realm realm) {
-                        realm.copyToRealm(diary);
-                    }
-                });
-                realm.beginTransaction();
-                realm.copyToRealm(diary);
-                realm.commitTransaction();
-                realm.close();
-                finish();**/
                 break;
             case R.id.btn_edit:
                 try {
