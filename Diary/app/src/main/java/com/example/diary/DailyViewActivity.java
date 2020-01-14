@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,9 +36,11 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
     private GestureDetector gestureScanner = null;
     private Button btn_datemove, btn_done, btn_edit;
     private DatePicker dp_fixedPicker;
-    private TextView tv_day;
+    private TextView tv_day,tv_myID,tv_coupleID,tv_diary;
     private EditText et_diary;
     private Spinner sp_question;
+    private LinearLayout diaryLayout;
+    private LinearLayout coupleLayout;
 
     private DiaryAdapter diaryAdapter;
     private Diary mDiary = new Diary();
@@ -73,19 +76,21 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
         btn_datemove = (Button) findViewById(R.id.btn_datemove);
         btn_done = (Button) findViewById(R.id.btn_done);
         btn_edit = (Button) findViewById(R.id.btn_edit);
-        //btn_question = (Button) findViewById(R.id.btn_question);
         dp_fixedPicker = (DatePicker) findViewById(R.id.dp_fixedPicker);
         tv_day = (TextView) findViewById(R.id.tv_day);
+        tv_myID = (TextView) findViewById(R.id.tv_myID);
+        tv_coupleID = (TextView) findViewById(R.id.tv_coupleID);
+        tv_diary = (TextView) findViewById(R.id.tv_diary);
         et_diary = (EditText) findViewById(R.id.et_diary);
         sp_question = (Spinner) findViewById(R.id.sp_question);
-        //Realm.init(this);
+        coupleLayout = (LinearLayout) findViewById(R.id.coupleLayout);
+        diaryLayout = (LinearLayout) findViewById(R.id.diaryLayout);
         mCalendarDay = CalendarDay.from(Calendar.getInstance());
         btn_convert.setOnClickListener(this);
         btn_datemove.setOnClickListener(this);
         btn_done.setOnClickListener(this);
         btn_edit.setOnClickListener(this);
-        //btn_question.setOnClickListener(this);
-        et_diary.setOnTouchListener(this);
+        diaryLayout.setOnTouchListener(this);
         questionList = getResources().getStringArray(R.array.defalt_questrons);
         questionAdpater = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,questionList){
             @Override
@@ -114,15 +119,17 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
         });
     }
 
-    public static Intent intentToDaily(Context context, String myID, String coupleID, int year, int month, int day, String[] questions , String[] diarys) {
+    public static Intent intentToDaily(Context context, String myID, String coupleID, int year, int month, int day, String[] myQuestions , String[] myDiarys, String[] coupleQuestions , String[] coupleDiarys) {
         Intent intent = new Intent(context, DailyViewActivity.class);
         intent.putExtra("myID",myID);
         intent.putExtra("coupleID",coupleID);
         intent.putExtra("year", year);
         intent.putExtra("month", month);
         intent.putExtra("day", day);
-        intent.putExtra("questions", questions);
-        intent.putExtra("diarys",diarys);
+        intent.putExtra("myQuestions", myQuestions);
+        intent.putExtra("myDiarys",myDiarys);
+        intent.putExtra("coupleQuestions", coupleQuestions);
+        intent.putExtra("coupleDiarys",coupleDiarys);
         return intent;
     }
 
@@ -133,8 +140,10 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
         intent.putExtra("year", year);
         intent.putExtra("month", month);
         intent.putExtra("day", day);
-        intent.putExtra("questions", questions);
-        intent.putExtra("diarys",diarys);
+        intent.putExtra("myQuestions", myQuestions);
+        intent.putExtra("myDiarys",myDiarys);
+        intent.putExtra("coupleQuestions", coupleQuestions);
+        intent.putExtra("coupleDiarys",coupleDiarys);
         startActivity(intent);
         finish();
     }

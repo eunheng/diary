@@ -11,9 +11,15 @@ public class DiaryAdapter {
     private String myID, coupleID, tYear, tMonth, tDay;
     private Interface clientInterface = new Interface();
 
-    String[] questions = new String[31];
-    String[] diarys = new String[31];
-    String[] checkedDiarys = new String[31];
+    String[] myQuestions = new String[31];
+    String[] myDiarys = new String[31];
+    String[] myCheckedDiarys = new String[31];
+
+    String[] coupleQuestions = new String[31];
+    String[] coupleDdiarys = new String[31];
+    String[] coupleCheckedDiarys = new String[31];
+
+
 
     public DiaryAdapter(int key, String myID, String coupleID,int year, int month, int day) {
         this.key = key;
@@ -47,7 +53,6 @@ public class DiaryAdapter {
         ArrayList<Diary> results;
         Diary diary;
 
-
         /**
          ArrayList<String> diaryLists = clientInterface.Result;
          for(int i=0;i<diaryLists.size();i++){
@@ -55,18 +60,31 @@ public class DiaryAdapter {
             results.add(diary);
          }
          for (Diary m : results) {
-         questions[m.getDay() -1] = m.getQuestion();
-         diarys[m.getDay() - 1] = m.getText();
-         tYear = String.valueOf(m.getYear());
-         tMonth = String.valueOf(m.getMonth());
-         tDay = String.valueOf(m.getDay());
-         if (!diarys[m.getDay() - 1].isEmpty())
-         checkedDiarys[m.getDay() - 1] = tYear + ',' + tMonth + ',' + tDay;
-         else
-         checkedDiarys[m.getDay() - 1] = "NULL";
+            String s = m.getName();
+            if(s.eqauls(myID)){
+                myQuestions[m.getDay() -1] = m.getQuestion();
+                myDiarys[m.getDay() - 1] = m.getText();
+                tYear = String.valueOf(m.getYear());
+                tMonth = String.valueOf(m.getMonth());
+                tDay = String.valueOf(m.getDay());
+         //TODO 수정하기
+                if (!myDiarys[m.getDay() - 1].isEmpty())
+                    myCheckedDiarys[m.getDay() - 1] = tYear + ',' + tMonth + ',' + tDay;
+                else
+                    myCheckedDiarys[m.getDay() - 1] = "NULL";
 
-         }
-
+            }else{
+                coupleQuestions[m.getDay() -1] = m.getQuestion();
+                couplemyDiarys[m.getDay() - 1] = m.getText();
+                tYear = String.valueOf(m.getYear());
+                tMonth = String.valueOf(m.getMonth());
+                tDay = String.valueOf(m.getDay());
+         //TODO 수정하기
+                if (!coupleDiarys[m.getDay() - 1].isEmpty())
+                    coupleCheckedDiarys[m.getDay() - 1] = tYear + ',' + tMonth + ',' + tDay;
+                else
+                    coupleCheckedDiarys[m.getDay() - 1] = "NULL";
+            }
          **/
 
 

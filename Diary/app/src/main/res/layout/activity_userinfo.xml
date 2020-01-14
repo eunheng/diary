@@ -41,7 +41,7 @@
                 android:id="@+id/iv_myColor"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@color/colorAccent"/>
+                android:background="@color/mycolor"/>
 
             <TextView
                 android:id="@+id/tv_myID"
