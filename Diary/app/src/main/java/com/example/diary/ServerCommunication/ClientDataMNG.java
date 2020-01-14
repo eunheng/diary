@@ -11,27 +11,27 @@ public class ClientDataMNG {
         DataAnalysis(MainPacket1.Type);
     }
 
-    private void DataAnalysis(int Type)
+    private void DataAnalysis(String Type)
     {
         switch (Type)
         {
-            case 11 : ClientInterface.NoticeDiaryEditSuccess();
+            case "11" : ClientInterface.NoticeDiaryEditSuccess();
                 break;
-            case 12 : ClientInterface.NoticeDiaryRegistSuccess();
+            case "12" : ClientInterface.NoticeDiaryRegistSuccess();
                 break;
-            case 13 : ClientInterface.NoticeBrokenCouple();
+            case "13" : ClientInterface.NoticeBrokenCouple();
                 break;
-            case 14 : ClientInterface.NoticeQuestion();
+            case "14" : ClientInterface.NoticeQuestion();
                 break;
-            case 15 : ClientInterface.NoticeRegistQeustion();
+            case "15" : ClientInterface.NoticeRegistQeustion();
                 break;
-            case 16 : ClientInterface.NoticeReFlashDiary();
+            case "16" : ClientInterface.NoticeReFlashDiary();
                 break;
-            case 17 : ClientInterface.NoticeInitializeDiary();
+            case "17" : ClientInterface.NoticeInitializeDiary();
                 break;
-            case 18 : ClientInterface.NoticeNextYMDiary();
+            case "18" : ClientInterface.NoticeNextYMDiary();
                 break;
-            case 19 : ClientInterface.NoticeSetCpuleNotice();
+            case "19" : ClientInterface.NoticeSetCpuleNotice();
                 break;
         }
     }

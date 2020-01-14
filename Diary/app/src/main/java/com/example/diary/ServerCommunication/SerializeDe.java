@@ -1,6 +1,11 @@
 package com.example.diary.ServerCommunication;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Base64;
+
 import org.apache.commons.lang3.SerializationUtils;
 
 public class SerializeDe implements Serializable {
@@ -14,21 +19,46 @@ public class SerializeDe implements Serializable {
 
     //--------------------------------------------------------------
 
-    public byte[] PacketSerialize(DataPacket.Header WholePacketSize, DataPacket.Pakcet MainPacketSerialize)
+    public byte[] PacketSerialize(DataPacket.Header HeaderPacketSize, DataPacket.Pakcet MainPacketSerialize)
     {
-        byte[] SerializePacket = new byte[2000];
-        byte[] HeaderSerialize = new byte[64];
-        byte[] MainSerialize = new byte [1936];
-        MainSerialize = SerializationUtils.serialize((Serializable) MainPacketSerialize);
-        WholePacketSize.PacketSize = MainSerialize.length;
-        HeaderSerialize = SerializationUtils.serialize((Serializable) WholePacketSize);
+        byte[] MainPacket = new byte[0];
+        byte[] HeaderPacket = new byte[0];
+        byte[] Total = new byte[2000];
+        try(ByteArrayOutputStream boas = new ByteArrayOutputStream()) {
+            try(ObjectOutputStream oos = new ObjectOutputStream(boas))
+            {
+                oos.writeObject(MainPacketSerialize);
+                MainPacket =  boas.toByteArray();
+                HeaderPacketSize.PacketSize = MainPacket.length;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try(ByteArrayOutputStream boas1 = new ByteArrayOutputStream()) {
+            try(ObjectOutputStream oos1 = new ObjectOutputStream(boas1))
+            {
+                oos1.writeObject(HeaderPacketSize);
+                HeaderPacket =  boas1.toByteArray();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.arraycopy(HeaderPacket, 0, Total,0, HeaderPacket.length);
+        System.arraycopy(MainPacket,0,Total,HeaderPacket.length,MainPacket.length);
+        /*byte[] SerializePacket = new byte[2000];
+        byte[] HeaderSerialize;
+        byte[] MainSerialize;
+        MainSerialize = SerializationUtils.serialize((Serializable)MainPacketSerialize);
+        HeaderPacketSize.PacketSize = MainSerialize.length;
+        HeaderSerialize = SerializationUtils.serialize((Serializable)HeaderPacketSize);
 
         System.arraycopy(HeaderSerialize, 0, SerializePacket,0, HeaderSerialize.length);
         System.arraycopy(MainSerialize,0,SerializePacket,HeaderSerialize.length,MainSerialize.length);
 
         //System.out.println(HeaderSerialize.length);
         //System.out.println(MainSerialize.length);
-        return SerializePacket;
+        return SerializePacket;*/
+        return Total;
     }
 
     public DataPacket.Header HeaderDeSerialize(byte[] TotalPacket)

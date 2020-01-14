@@ -12,11 +12,13 @@ public class Interface implements Serializable {
     private ClientConnectionAPI ServerSock = ClientConnectionAPI.getInstance();
     private Socket ServerSocket = null;
     private SerializeDe PacketSerialize = new SerializeDe();
+    private ClientCommunication SendeMSG = new ClientCommunication(ServerSock.ServerSocket);
     private static final long serialVersionUID = 1L;
     private ObjectOutputStream oos;
+    private int Time = 10;
 
-    public Interface()
-    {
+
+    public Interface() {
         ServerSocket = ServerSock.ServerSocket;
     }
     //------------------------------Recv--------------------
@@ -67,108 +69,300 @@ public class Interface implements Serializable {
     }
 
 
+    //------------------------------Sender-----------------------------------
+    public void NameNoticeSender(String Name) throws IOException {
 
-//------------------------------Sender-----------------------------------
-    public void NameNoticeSender(String Name) throws IOException
-    {
-        DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
-        MainDataPacketSender.Name = Name;
-        setPacket(1, MainDataPacketSender);
+        setPacket("1");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Name);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
 
     }
 
-    public void DiaryRegistSender(String Name, String Contents, String Year, String Month, String Date) throws IOException
-    {
-        DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
-        MainDataPacketSender.Name = Name;
-        MainDataPacketSender.Comments = Contents;
-        MainDataPacketSender.Year = Year;
-        MainDataPacketSender.Month = Month;
-        MainDataPacketSender.Date = Date;
-        setPacket(2,MainDataPacketSender);
+    public void DiaryRegistSender(String Name, String Contents, String Year, String Month, String Date) throws IOException {
+        setPacket("2");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Name);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Contents);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Year);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Month);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Date);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        //  setPacket(2,MainDataPacketSender);
     }
 
-    public void DiaryEditSender(String Name, String Contents, String Year, String Month, String Date) throws IOException
-    {
-        DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
-        MainDataPacketSender.Name = Name;
-        MainDataPacketSender.Comments = Contents;
-        MainDataPacketSender.Year = Year;
-        MainDataPacketSender.Month = Month;
-        MainDataPacketSender.Date = Date;
-        setPacket(3,MainDataPacketSender);
+    public void DiaryEditSender(String Name, String Contents, String Year, String Month, String Date) throws IOException {
+        setPacket("3");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Name);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Contents);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Year);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Month);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Date);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        //  setPacket(2,MainDataPacketSender);
     }
 
-    public void RegistQuestionSender(String Name, String Question, String Year, String Month, String Date) throws IOException
-    {
-        DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
-        MainDataPacketSender.Name = Name;
-        MainDataPacketSender.Question = Question;
-        MainDataPacketSender.Year = Year;
-        MainDataPacketSender.Month = Month;
-        MainDataPacketSender.Date = Date;
-        setPacket(4,MainDataPacketSender);
+    public void RegistQuestionSender(String Name, String Question, String Year, String Month, String Date) throws IOException {
+        setPacket("4");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Name);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Year);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Month);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Date);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Question);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        //  setPacket(2,MainDataPacketSender);
     }
 
-    public void SetCoupleSender(String Name, String CoupleName) throws IOException
-    {
-        DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
-        MainDataPacketSender.Name = Name;
-        MainDataPacketSender.CoupleName = CoupleName;
-        setPacket(5,MainDataPacketSender);
+    public void SetCoupleSender(String Name, String CoupleName) throws IOException {
+        setPacket("5");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Name);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(CoupleName);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        //  setPacket(2,MainDataPacketSender);
     }
 
-    public void BrokenCoupleSender(String Name) throws IOException
-    {
-        DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
-        MainDataPacketSender.Name = Name;
-        setPacket(6,MainDataPacketSender);
+    public void BrokenCoupleSender(String Name) throws IOException {
+        setPacket("6");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Name);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        //  setPacket(2,MainDataPacketSender);
     }
 
-    public void DeleteUserInfoSender()  throws IOException
-    {
-        DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
-        setPacket(7,MainDataPacketSender);
+    public void DeleteUserInfoSender() throws IOException {
+        setPacket("7");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        //  setPacket(2,MainDataPacketSender);
     }
 
-    public void ReFreshDiarySender(String Name, String Year, String Month)  throws IOException
-    {
-        DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
-        MainDataPacketSender.Name =Name;
-        MainDataPacketSender.Year = Year;
-        MainDataPacketSender.Month = Month;
-        setPacket(8,MainDataPacketSender);
+    public void ReFreshDiarySender(String Name, String Year, String Month) throws IOException {
+        setPacket("8");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Name);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(""); //Comments
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Year);  //year
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Month); //Month
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(""); //Date
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        //  setPacket(2,MainDataPacketSender);
     }
 
-    public void InitSender(String Name, String Year, String Month)  throws IOException
-    {
-        DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
-        MainDataPacketSender.Name =Name;
-        MainDataPacketSender.Year = Year;
-        MainDataPacketSender.Month = Month;
-        setPacket(9,MainDataPacketSender);
+    public void InitSender(String Name, String Year, String Month) throws IOException {
+        setPacket("9");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Name);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(""); //Comments
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Year);  //year
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Month); //Month
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(""); //Date
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        //  setPacket(2,MainDataPacketSender);
     }
 
-    public void NextMYSender(String Name, String Year, String Month)  throws IOException
-    {
-        DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
-        MainDataPacketSender.Name =Name;
-        MainDataPacketSender.Year = Year;
-        MainDataPacketSender.Month = Month;
-        setPacket(10,MainDataPacketSender);
+    public void NextMYSender(String Name, String Year, String Month) throws IOException {
+        setPacket("10");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Name);
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(""); //Comments
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Year);  //year
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(Month); //Month
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket(""); //Date
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        setPacket("");
+        try {Thread.sleep(100); }
+        catch (InterruptedException e) {e.printStackTrace();}
+        //  setPacket(2,MainDataPacketSender);
+    }
+
+    public void test() {
+        //String a = "경선";
+        //byte[] Q = new byte[0];
+        //SendeMSG.Send(ClientConnectionAPI.getInstance().ServerSocket, Q);
     }
 
 
-    public void setPacket(int Type, DataPacket.Pakcet SenderMainPacket) throws IOException
-    {
-        byte[] TotalPacketSender = new byte[2000];
+    public void setPacket(String Data) throws IOException {
+        String DataR = Data;
+        SendeMSG.TypeSend(ClientConnectionAPI.getInstance().ServerSocket, DataR);
 
-        DataPacket.Header HeaderDataPacketSender = new DataPacket.Header();
 
-        SenderMainPacket.Type = Type;
-        TotalPacketSender = PacketSerialize.PacketSerialize(HeaderDataPacketSender,SenderMainPacket);
-        oos = new ObjectOutputStream(ServerSocket.getOutputStream());
-        oos.writeObject(TotalPacketSender);
-        oos.flush();
     }
+
 }

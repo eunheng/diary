@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.diary.ServerCommunication.ClientCommunication;
 import com.example.diary.ServerCommunication.ClientConnectionAPI;
+import com.example.diary.ServerCommunication.Interface;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener  {
     private EditText et_userID,et_coupleID;
@@ -20,7 +23,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LinearLayout coupleLayout;
     private Context mContext = LoginActivity.this;
     private ClientConnectionAPI Con = ClientConnectionAPI.getInstance();
-
+    private Interface ClientInterface = new Interface();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +32,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Thread Connection = new Thread(Connect);
         Connection.start();
         init();
-
-        ClientCommunication RecvThread = new ClientCommunication(Con.ServerSocket);
-        Runnable Recv = RecvThread;
-        Thread RecvStart = new Thread(Recv);
-        RecvStart.start();
 
     }
 
@@ -63,9 +61,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()) {
             case R.id.btn_start:
+                ClientCommunication RecvThread = new ClientCommunication(Con.ServerSocket);
+                Runnable Recv = RecvThread;
+                Thread RecvStart = new Thread(Recv);
+                RecvStart.start();
                 String userID = et_userID.getText().toString();
+                try {
+                    ClientInterface.NameNoticeSender(userID);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 if (nullCheck(userID)){
                     Toast.makeText(mContext, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                 }else {

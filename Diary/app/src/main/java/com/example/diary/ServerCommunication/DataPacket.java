@@ -15,6 +15,9 @@ public class DataPacket  {
         String Month= "";
         String Date= "";
     }
+
+
+
     static public class Header implements Serializable
     {
         int PacketSize;
@@ -22,7 +25,7 @@ public class DataPacket  {
 
     static public class Pakcet implements Serializable
     {
-        int Type = 0;
+        String Type = "";
         String Name = "";
         String CoupleName = "";
         String Comments = "";
@@ -32,6 +35,5 @@ public class DataPacket  {
         String Question= "";
         Socket SocketValue;
         ArrayList<DiaryList> Diary;
-        boolean RecvFlag = true;
     }
 }
