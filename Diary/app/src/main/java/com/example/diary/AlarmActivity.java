@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 
-public class AlramActivity extends Activity implements View.OnClickListener {
+public class AlarmActivity extends Activity implements View.OnClickListener {
 
     TextView tv_title;
     ImageView backArrow;
@@ -22,9 +22,10 @@ public class AlramActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alram);
+        setContentView(R.layout.activity_alarm);
 
         init();
+        setNotification();
 
     }
 
@@ -38,6 +39,11 @@ public class AlramActivity extends Activity implements View.OnClickListener {
 
         backArrow.setOnClickListener(this);
         tv_title.setText(item[1]);
+    }
+
+    private void setNotification() {
+        Intent mAlarmIntent = new Intent("com.example.diary.ALARM_START");
+
     }
 
     @Override

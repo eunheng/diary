@@ -3,7 +3,6 @@ package com.example.diary.ServerCommunication;
 import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
-import org.apache.commons.lang3.SerializationUtils;
 
 public class DataPacket  {
     public class DiaryList

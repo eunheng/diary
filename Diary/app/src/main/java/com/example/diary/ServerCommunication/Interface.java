@@ -5,8 +5,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
-import org.apache.commons.lang3.SerializationUtils;
-
 public class Interface implements Serializable {
 
     private ClientConnectionAPI ServerSock = ClientConnectionAPI.getInstance();
@@ -14,7 +12,6 @@ public class Interface implements Serializable {
     private SerializeDe PacketSerialize = new SerializeDe();
     private ClientCommunication SendeMSG = new ClientCommunication(ServerSock.ServerSocket);
     private static final long serialVersionUID = 1L;
-    private ObjectOutputStream oos;
     private int Time = 10;
 
 
@@ -22,6 +19,10 @@ public class Interface implements Serializable {
         ServerSocket = ServerSock.ServerSocket;
     }
     //------------------------------Recv--------------------
+    /**
+    public ArrayList<String> Result(입력값){
+        return 입력값;
+    }**/
 
     public void NoticeDiaryEditSuccess() //Type 11
     {
