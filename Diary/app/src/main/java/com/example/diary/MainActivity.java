@@ -40,12 +40,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int todayYear = todayDate.getYear(), todayMonth = todayDate.getMonth(), todayDay = todayDate.getDay();    //오늘 날짜
     private CalendarDay mCalendarDay;
     private int dpYear=todayYear,dpMonth=todayMonth,dpDay=todayDay;
+    private String myID, coupleID;
+    private int key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+        login();
         dailyToMonthly(); //처음 뷰 띄울 때 오늘을 기준으로 일기있는 날 체크, 인텐트 받아오면 일기 보던 날의 달로 체크
         checkDatePicker();
     }
@@ -68,7 +71,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void dailyToMonthly(){
+    private void login(){
+        Intent intent = getIntent();
+        if(intent != null){
+            myID = intent.getStringExtra("myID");
+            coupleID = intent.getStringExtra("coupleID");
+            if (coupleID.isEmpty()){
+                //커플 아이디 없을 경우
+                coupleID = "Null";
+            }
+        }
+    }
+
+    private void dailyToMonthly(){//앱이 실행 됐을 때, 데일리 뷰로 갔다 왔을 때
+        key = 0;
         Intent intent = getIntent();
         if(intent != null){
             dpYear = intent.getIntExtra("year", todayYear);
@@ -78,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mCalendarDay = CalendarDay.from(dpYear,dpMonth,dpDay);
         calendarView.setSelectedDate(mCalendarDay);
         calendarView.setCurrentDate(mCalendarDay);
-        checkedDay(dpYear,dpMonth,dpDay);
+        checkedDay(key,dpYear,dpMonth,dpDay);
     }
 
     //상단 스피너 날짜 이동값 저장
@@ -94,14 +110,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void moveDiary(int year, int month, int day){
-        diaryAdapter = new DiaryAdapter(year,month,day);
-        startActivity(DailyViewActivity.intentToDaily(this,year,month,day,diaryAdapter.questions,diaryAdapter.diarys));
+        key=2;
+        diaryAdapter = new DiaryAdapter(key,myID,coupleID,year,month,day);
+        startActivity(DailyViewActivity.intentToDaily(this,myID,coupleID,year,month,day,diaryAdapter.questions,diaryAdapter.diarys));
         finish();
     }
 
     //일기 저장된 날 체크
-    private void checkedDay(int year, int month, int day){
-        diaryAdapter = new DiaryAdapter(year,month,day);
+    private void checkedDay(int key, int year, int month, int day){
+        diaryAdapter = new DiaryAdapter(key,myID,coupleID,year,month,day);
         String[] result = {"2020,01,18","2020,01,22","2020,01,04","2020,01,29"};
         //new ApiSimulator(diaryAdapter.checkedDiarys).executeOnExecutor(Executors.newSingleThreadExecutor());
         new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
@@ -165,10 +182,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 moveDiary(todayYear,todayMonth,todayDay);
                 break;
             case R.id.btn_datemove: //피커에서 받아온 값으로 캘린더 이동, 일기있는 날 체크
+                key=1;
                 mCalendarDay = CalendarDay.from(dpYear,dpMonth,dpDay);
                 calendarView.setCurrentDate(mCalendarDay);
                 calendarView.setSelectedDate(mCalendarDay);
-                checkedDay(dpYear,dpMonth,dpDay);
+                checkedDay(key,dpYear,dpMonth,dpDay);
                 break;
             case R.id.btn_setting: //피커에서 받아온 값으로 일기 업데이트
                 Intent intent = new Intent(this, SettingActivity.class);
@@ -190,6 +208,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
         //달 변화 이벤트(일기있는 날 체크)
-        checkedDay(date.getYear(),date.getMonth(),date.getDay());
+        key=1;
+        checkedDay(key,date.getYear(),date.getMonth(),date.getDay());
     }
 }

@@ -5,21 +5,23 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
-import org.apache.commons.lang3.SerializationUtils;
-
 public class Interface implements Serializable {
 
     private ClientConnectionAPI ServerSock = ClientConnectionAPI.getInstance();
     private Socket ServerSocket = null;
     private SerializeDe PacketSerialize = new SerializeDe();
     private static final long serialVersionUID = 1L;
-    private ObjectOutputStream oos;
+
 
     public Interface()
     {
         ServerSocket = ServerSock.ServerSocket;
     }
     //------------------------------Recv--------------------
+    /**
+    public ArrayList<String> Result(입력값){
+        return 입력값;
+    }**/
 
     public void NoticeDiaryEditSuccess() //Type 11
     {
@@ -78,7 +80,7 @@ public class Interface implements Serializable {
     }
 
     public void DiaryRegistSender(String Name, String Contents, String Year, String Month, String Date) throws IOException
-    {
+    {//일기등록
         DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
         MainDataPacketSender.Name = Name;
         MainDataPacketSender.Comments = Contents;
@@ -89,7 +91,7 @@ public class Interface implements Serializable {
     }
 
     public void DiaryEditSender(String Name, String Contents, String Year, String Month, String Date) throws IOException
-    {
+    {//일기 수정
         DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
         MainDataPacketSender.Name = Name;
         MainDataPacketSender.Comments = Contents;
@@ -100,7 +102,7 @@ public class Interface implements Serializable {
     }
 
     public void RegistQuestionSender(String Name, String Question, String Year, String Month, String Date) throws IOException
-    {
+    {//질문 등록
         DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
         MainDataPacketSender.Name = Name;
         MainDataPacketSender.Question = Question;
@@ -111,7 +113,7 @@ public class Interface implements Serializable {
     }
 
     public void SetCoupleSender(String Name, String CoupleName) throws IOException
-    {
+    {//커플 맺기
         DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
         MainDataPacketSender.Name = Name;
         MainDataPacketSender.CoupleName = CoupleName;
@@ -119,14 +121,14 @@ public class Interface implements Serializable {
     }
 
     public void BrokenCoupleSender(String Name) throws IOException
-    {
+    {//커플끊기
         DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
         MainDataPacketSender.Name = Name;
         setPacket(6,MainDataPacketSender);
     }
 
     public void DeleteUserInfoSender()  throws IOException
-    {
+    {//없음
         DataPacket.Pakcet MainDataPacketSender = new DataPacket.Pakcet();
         setPacket(7,MainDataPacketSender);
     }
@@ -167,7 +169,8 @@ public class Interface implements Serializable {
 
         SenderMainPacket.Type = Type;
         TotalPacketSender = PacketSerialize.PacketSerialize(HeaderDataPacketSender,SenderMainPacket);
-        oos = new ObjectOutputStream(ServerSocket.getOutputStream());
+        ObjectOutputStream oos;
+        oos = new ObjectOutputStream(ServerSock.ServerSocket.getOutputStream());
         oos.writeObject(TotalPacketSender);
         oos.flush();
     }

@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.diary.ServerCommunication.ClientCommunication;
 import com.example.diary.ServerCommunication.ClientConnectionAPI;
+import com.example.diary.ServerCommunication.Interface;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener  {
     private EditText et_userID,et_coupleID;
@@ -20,6 +23,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LinearLayout coupleLayout;
     private Context mContext = LoginActivity.this;
     private ClientConnectionAPI Con = ClientConnectionAPI.getInstance();
+    private Interface ClientInterface=new Interface();
+    Intent intent = new Intent(mContext, MainActivity.class);
+
+    private String myID, coupleID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Connection.start();
         init();
 
-        ClientCommunication RecvThread = new ClientCommunication(Con.ServerSocket);
-        Runnable Recv = RecvThread;
-        Thread RecvStart = new Thread(Recv);
-        RecvStart.start();
+
 
     }
 
@@ -48,7 +52,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btn_start.setOnClickListener(this);
         btn_solo.setOnClickListener(this);
         btn_couple.setOnClickListener(this);
-        //TODO 자동로그인
     }
 
     private boolean nullCheck(String string){
@@ -65,38 +68,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_start:
-                String userID = et_userID.getText().toString();
-                if (nullCheck(userID)){
+                myID = et_userID.getText().toString();
+                ClientCommunication RecvThread = new ClientCommunication(Con.ServerSocket);
+                Runnable Recv = RecvThread;
+                Thread RecvStart = new Thread(Recv);
+                RecvStart.start();
+                if (nullCheck(myID)){
                     Toast.makeText(mContext, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                 }else {
-                    //TODO 서버로 이름 보내고 결과 받아오기
-                    //if 유저 이름을 체크해서 커플이 있다면 바로 먼슬리로
-                    //else 없다면 커플 맺기 뜨기
-                    {
-                        et_userID.setFocusableInTouchMode(false);
-                        et_userID.setFocusable(false);
-                        et_userID.setClickable(false);
-                        btn_start.setVisibility(View.GONE);
-                        coupleLayout.setVisibility(View.VISIBLE);
+                    try {
+                        ClientInterface.NameNoticeSender(myID);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    et_userID.setFocusableInTouchMode(false);
+                    et_userID.setFocusable(false);
+                    et_userID.setClickable(false);
+                    btn_start.setVisibility(View.GONE);
+                    coupleLayout.setVisibility(View.VISIBLE);
+                    intent.putExtra("myID",myID);
                 }
-
                 break;
-            case R.id.btn_solo:
-                //커플 맺지 않고 바로 먼슬리로
-                Intent intent1 = new Intent(mContext, MainActivity.class);
-                //TODO 유저 네임 넘겨주기?
-                startActivity(intent1);
+            case R.id.btn_solo: //커플 맺지 않고 바로 먼슬리로
+                startActivity(intent);
+                finish();
                 break;
             case R.id.btn_couple:
-                String coupleID = et_userID.getText().toString();
+                coupleID = et_userID.getText().toString();
                 if (nullCheck(coupleID)){
                     Toast.makeText(mContext, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                 }else {
-                    //TODO 서버로 커플 이름 보내기, 먼슬리로 이동
-                    Intent intent2 = new Intent(mContext, MainActivity.class);
-                    //TODO 유저 네임 넘겨주기?
-                    startActivity(intent2);
+                    try {
+                        ClientInterface.SetCoupleSender(myID,coupleID);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    intent.putExtra("coupleID",coupleID);
+                    startActivity(intent);
+                    finish();
                 }
                 break;
             default:

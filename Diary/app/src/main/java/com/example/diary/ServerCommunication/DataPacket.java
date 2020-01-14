@@ -3,7 +3,6 @@ package com.example.diary.ServerCommunication;
 import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
-import org.apache.commons.lang3.SerializationUtils;
 
 public class DataPacket  {
     public class DiaryList
@@ -22,6 +21,7 @@ public class DataPacket  {
 
     static public class Pakcet implements Serializable
     {
+        //String으로
         int Type = 0;
         String Name = "";
         String CoupleName = "";
@@ -32,6 +32,7 @@ public class DataPacket  {
         String Question= "";
         Socket SocketValue;
         ArrayList<DiaryList> Diary;
+        //없어짐
         boolean RecvFlag = true;
     }
 }

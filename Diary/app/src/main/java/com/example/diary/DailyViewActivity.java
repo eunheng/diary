@@ -21,8 +21,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.diary.ServerCommunication.Interface;
+import com.example.diary.model.Diary;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 public class DailyViewActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
@@ -37,6 +40,8 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
     private Spinner sp_question;
 
     private DiaryAdapter diaryAdapter;
+    private Diary mDiary = new Diary();
+    private Interface clientInterface=new Interface();
 
     //val
     private static final int SWIPE_MIN_DISTANCE = 120;
@@ -51,7 +56,7 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
     private ArrayAdapter<String> questionAdpater;
     private String[] questionList;
     private int btnDone=8,btnEdit=0;
-
+    private String myID, coupleID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,8 +114,10 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
         });
     }
 
-    public static Intent intentToDaily(Context context, int year, int month, int day, String[] questions , String[] diarys) {
+    public static Intent intentToDaily(Context context, String myID, String coupleID, int year, int month, int day, String[] questions , String[] diarys) {
         Intent intent = new Intent(context, DailyViewActivity.class);
+        intent.putExtra("myID",myID);
+        intent.putExtra("coupleID",coupleID);
         intent.putExtra("year", year);
         intent.putExtra("month", month);
         intent.putExtra("day", day);
@@ -121,6 +128,8 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
 
     private void intentToMonthly() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("myID",myID);
+        intent.putExtra("coupleID",coupleID);
         intent.putExtra("year", year);
         intent.putExtra("month", month);
         intent.putExtra("day", day);
@@ -183,9 +192,11 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
     }
 
     private void updateDiary(int year, int month, int day){
+        int key = 1;
+        
         if (!((year==this.year)||(month==this.month)))
         {
-            diaryAdapter = new DiaryAdapter(year,month,day);
+            diaryAdapter = new DiaryAdapter(key,myID,coupleID,year,month,day);
             questions = diaryAdapter.questions;
             diarys = diaryAdapter.diarys;
             question = diaryAdapter.questions[day-1];
@@ -203,7 +214,15 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
                     sp_question.setSelection(i);
         }
 
+    }
 
+    private void setDiaryData(){
+        mDiary.setName(myID);
+        mDiary.setYear(year);
+        mDiary.setMonth(month);
+        mDiary.setDay(day);
+        mDiary.setQuestion(question);
+        mDiary.setText(et_diary.getText().toString());
     }
 
 
@@ -218,20 +237,21 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
                 updateDiary(dpYear,dpMonth,dpDay);
                 break;
             case R.id.btn_done: //메모 저장
-                /*final Diary diary = new Diary();
-                diary.setYear(year);
-                diary.setMonth(month);
-                diary.setDay(day);
-                diary.setQuestion(question);
-                diary.setText(et_diary.getText().toString());*/
-                et_diary.setFocusableInTouchMode(false);
-                et_diary.setFocusable(false);
-                et_diary.setClickable(false);
+                try {
+                    clientInterface.DiaryRegistSender(mDiary.getName(),mDiary.getText(),mDiary.getYearToStting()
+                            ,mDiary.getMonthToStting(),mDiary.getDayToStting());
+                    clientInterface.RegistQuestionSender(mDiary.getName(),mDiary.getQuestion(),mDiary.getYearToStting()
+                            ,mDiary.getMonthToStting(),mDiary.getDayToStting());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                /** TODO 저장버튼 비활성화, 수정버튼 활성화
                 //sp_question.setEnabled(false);
                 btn_done.setEnabled(false);
                 btn_done.setTextColor(getResources().getColor(R.color.white));
                 btn_edit.setEnabled(true);
-                btn_edit.setTextColor(getResources().getColor(R.color.darkGray));
+                btn_edit.setTextColor(getResources().getColor(R.color.darkGray));**/
 
                 /** TODO 서버로 처음 저장
                 Realm realm = Realm.getDefaultInstance();
@@ -249,15 +269,21 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
                 finish();**/
                 break;
             case R.id.btn_edit:
-                /** TODO 서버로 수정 값 보내기 **/
-                et_diary.setFocusableInTouchMode(true);
-                et_diary.setFocusable(true);
-                et_diary.setClickable(true);
+                try {
+                    clientInterface.DiaryEditSender(mDiary.getName(),mDiary.getText(),mDiary.getYearToStting()
+                            ,mDiary.getMonthToStting(),mDiary.getDayToStting());
+                    /** TODO 서버 질문 수정 보내기 **/
+                    //clientInterface.RegistQuestionSender(mDiary.getName(),mDiary.getQuestion(),mDiary.getYearToStting()
+                    //        ,mDiary.getMonthToStting(),mDiary.getDayToStting());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                /** TODO 저장버튼 활성화, 수정버튼 비활성화
                 //sp_question.setEnabled(true);
                 btn_edit.setEnabled(false);
                 btn_edit.setTextColor(getResources().getColor(R.color.white));
                 btn_done.setEnabled(true);
-                btn_done.setTextColor(getResources().getColor(R.color.darkGray));
+                btn_done.setTextColor(getResources().getColor(R.color.darkGray));**/
                 break;
             default:
                 break;
