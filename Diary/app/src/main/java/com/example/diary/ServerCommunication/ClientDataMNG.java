@@ -1,14 +1,18 @@
 package com.example.diary.ServerCommunication;
 
+import java.util.ArrayList;
+
 public class ClientDataMNG {
     private DataPacket.Header HeaderPacket = new DataPacket.Header();
     private DataPacket.Pakcet MainPacket = new DataPacket.Pakcet();
     private Interface ClientInterface = new Interface();
+    private ArrayList DiaryData = new ArrayList();
     public ClientDataMNG(DataPacket.Header HeaderPacket1,  DataPacket.Pakcet MainPacket1)
     {
         HeaderPacket = HeaderPacket1;
         MainPacket = MainPacket1;
         DataAnalysis(MainPacket1.Type);
+        DiaryData=MainPacket.Diary;
     }
 
     private void DataAnalysis(String Type)
@@ -23,11 +27,11 @@ public class ClientDataMNG {
                 break;
             case "14" : ClientInterface.NoticeQuestion();
                 break;
-            case "15" : ClientInterface.NoticeRegistQeustion();
+            case "15" : ClientInterface.NoticeRegistQeustion(DiaryData);
                 break;
-            case "16" : ClientInterface.NoticeReFlashDiary();
-                break;
-            case "17" : ClientInterface.NoticeInitializeDiary();
+            case "16" : ClientInterface.NoticeReFlashDiary(DiaryData);
+            break;
+            case "17" : ClientInterface.NoticeInitializeDiary(DiaryData);
                 break;
             case "18" : ClientInterface.NoticeNextYMDiary();
                 break;

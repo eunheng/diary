@@ -24,7 +24,7 @@ public class DiaryAdapter {
         this.day = day;
 
         tYear = String.valueOf(year);
-        tMonth = String.valueOf(month);
+        tMonth = String.valueOf(month+1);
 
         try{
             switch (key){

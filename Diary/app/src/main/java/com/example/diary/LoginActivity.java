@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Context mContext = LoginActivity.this;
     private ClientConnectionAPI Con = ClientConnectionAPI.getInstance();
     private Interface ClientInterface=new Interface();
-    Intent intent = new Intent(mContext, MainActivity.class);
+    Intent intent;
 
     private String myID, coupleID;
 
@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Runnable Connect = Con;
         Thread Connection = new Thread(Connect);
         Connection.start();
+        intent = new Intent(mContext, MainActivity.class);
         init();
 
 
@@ -95,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.btn_couple:
-                coupleID = et_userID.getText().toString();
+                coupleID = et_coupleID.getText().toString();
                 if (nullCheck(coupleID)){
                     Toast.makeText(mContext, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                 }else {
