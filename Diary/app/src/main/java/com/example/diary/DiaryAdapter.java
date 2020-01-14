@@ -1,16 +1,17 @@
 package com.example.diary;
 
 import com.example.diary.ServerCommunication.Interface;
+import com.example.diary.ServerCommunication.onDiaryData;
 import com.example.diary.model.Diary;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class DiaryAdapter {
+public class DiaryAdapter implements onDiaryData {
     private int key, year, month, day;
     private String myID, coupleID, tYear, tMonth, tDay;
     private Interface clientInterface = new Interface();
-
+    private ArrayList<String> Data1 = new ArrayList<String>();
     String[] myQuestions = new String[31];
     String[] myDiarys = new String[31];
     String[] myCheckedDiarys = new String[31];
@@ -18,7 +19,7 @@ public class DiaryAdapter {
     String[] coupleQuestions = new String[31];
     String[] coupleDiarys = new String[31];
     String[] coupleCheckedDiarys = new String[31];
-
+    Interface Diary = new Interface();
 
     public DiaryAdapter(int key, String myID, String coupleID, int year, int month, int day) {
         this.key = key;
@@ -30,6 +31,7 @@ public class DiaryAdapter {
 
         tYear = String.valueOf(year);
         tMonth = String.valueOf(month + 1);
+        Diary.onDiaryListener(this);
 
         try {
             switch (key) {
@@ -51,9 +53,12 @@ public class DiaryAdapter {
 
         ArrayList<Diary> results = null;
         Diary diary = new Diary();
+        ArrayList<String> diaryLists = new ArrayList<String>();
 
-
-        ArrayList<String> diaryLists = clientInterface.DiaryList;
+       while(diaryLists.size() == 0) {
+           Diary.DirtySetting();
+           diaryLists = Data1;
+       }
         if (diaryLists != null) {
             for (int i = 0; i < diaryLists.size(); i++) {
                 diary.splitString(diaryLists.get(i));
@@ -86,8 +91,14 @@ public class DiaryAdapter {
             }
         }
 
+
+
     }
 
+    @Override
+    public void onDiaryList(ArrayList<String> Data) {
+        Data1 =Data;
+    }
 }
 
 /** TODO 서버에서 받아오기

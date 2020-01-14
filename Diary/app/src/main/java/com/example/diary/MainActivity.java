@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void moveDiary(int year, int month, int day){
         key=2;
         diaryAdapter = new DiaryAdapter(key,myID,coupleID,year,month,day);
-        startActivity(DailyViewActivity.intentToDaily(this,myID,coupleID,year,month,day,diaryAdapter.myQuestions,diaryAdapter.myDiarys,diaryAdapter.coupleQuestions,diaryAdapter.coupleDdiarys));
+        //startActivity(DailyViewActivity.intentToDaily(this,myID,coupleID,year,month,day,diaryAdapter.myQuestions,diaryAdapter.myDiarys,diaryAdapter.coupleQuestions,diaryAdapter.coupleDiarys));
         finish();
     }
 

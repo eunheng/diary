@@ -33,6 +33,6 @@ public class DataPacket  {
         String Date= "";
         String Question= "";
         Socket SocketValue;
-        ArrayList<DiaryList> Diary;
+        ArrayList<String> Diary;
     }
 }

@@ -6,7 +6,8 @@ public class ClientDataMNG {
     private DataPacket.Header HeaderPacket = new DataPacket.Header();
     private DataPacket.Pakcet MainPacket = new DataPacket.Pakcet();
     private Interface ClientInterface = new Interface();
-    private ArrayList DiaryData = new ArrayList();
+    private ArrayList<String> DiaryData = new ArrayList();
+
     public ClientDataMNG(DataPacket.Header HeaderPacket1,  DataPacket.Pakcet MainPacket1)
     {
         HeaderPacket = HeaderPacket1;
@@ -27,11 +28,11 @@ public class ClientDataMNG {
                 break;
             case "14" : ClientInterface.NoticeQuestion();
                 break;
-            case "15" : ClientInterface.NoticeRegistQeustion(DiaryData);
+            case "15" : ClientInterface.NoticeRegistQeustion(MainPacket.Diary);
                 break;
-            case "16" : ClientInterface.NoticeReFlashDiary(DiaryData);
+            case "16" : ClientInterface.NoticeReFlashDiary(MainPacket.Diary);
             break;
-            case "17" : ClientInterface.NoticeInitializeDiary(DiaryData);
+            case "17" : ClientInterface.NoticeInitializeDiary(MainPacket.Diary);
                 break;
             case "18" : ClientInterface.NoticeNextYMDiary();
                 break;

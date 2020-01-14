@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Interface implements Serializable {
+public class Interface implements Serializable, onDiaryData {
 
     private ClientConnectionAPI ServerSock = ClientConnectionAPI.getInstance();
     private Socket ServerSocket = null;
@@ -13,8 +13,18 @@ public class Interface implements Serializable {
     private ClientCommunication SendeMSG = new ClientCommunication(ServerSock.ServerSocket);
     private static final long serialVersionUID = 1L;
     private int Time = 10;
-    public ArrayList DiaryList;
+    private onDiaryData OnDiaryData = null;
 
+    public static ArrayList DiaryList = new ArrayList();
+
+    public void DirtySetting()
+    {
+        OnDiaryData.onDiaryList(DiaryList);
+    }
+    public void onDiaryListener(onDiaryData listener)
+    {
+        this.OnDiaryData = listener;
+    }
 
     public Interface() {
         ServerSocket = ServerSock.ServerSocket;
@@ -42,19 +52,21 @@ public class Interface implements Serializable {
 
     }
 
-    public void NoticeRegistQeustion(ArrayList DiaryList) //Type 15
+    public void NoticeRegistQeustion(ArrayList DiaryList1) //Type 15
     {
-        this.DiaryList = DiaryList;
+        this.DiaryList = DiaryList1;
     }
 
-    public void NoticeReFlashDiary(ArrayList DiaryList) //Type 16
+    public void NoticeReFlashDiary(ArrayList DiaryList1) //Type 16
     {
-        this.DiaryList = DiaryList;
+        this.DiaryList = DiaryList1;
     }
 
-    public void NoticeInitializeDiary(ArrayList DiaryList) //Type 17
+    public void NoticeInitializeDiary(ArrayList DiaryList1) //Type 17
     {
-        this.DiaryList = DiaryList;
+        this.DiaryList = DiaryList1;
+        int a;
+        a =100;
     }
 
     public void NoticeNextYMDiary() //Type 18
@@ -364,4 +376,8 @@ public class Interface implements Serializable {
 
     }
 
+    @Override
+    public void onDiaryList(ArrayList<String> Data) {
+
+    }
 }
