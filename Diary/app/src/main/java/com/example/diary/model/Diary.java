@@ -44,7 +44,7 @@ public class Diary {
                     break;
                 case 1:
                     splitUnit[i].replace("month=","");
-                    setMonth(Integer.valueOf(splitUnit[i]));
+                    setMonth(Integer.valueOf(splitUnit[i])-1);
                     break;
                 case 2:
                     splitUnit[i].replace("day=","");

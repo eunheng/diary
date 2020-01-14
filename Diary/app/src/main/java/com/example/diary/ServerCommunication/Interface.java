@@ -1,7 +1,6 @@
 package com.example.diary.ServerCommunication;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -14,16 +13,14 @@ public class Interface implements Serializable {
     private ClientCommunication SendeMSG = new ClientCommunication(ServerSock.ServerSocket);
     private static final long serialVersionUID = 1L;
     private int Time = 10;
+    public ArrayList DiaryList;
 
 
     public Interface() {
         ServerSocket = ServerSock.ServerSocket;
     }
     //------------------------------Recv--------------------
-    /**
-    public ArrayList<String> Result(입력값){
-        return 입력값;
-    }**/
+
 
     public void NoticeDiaryEditSuccess() //Type 11
     {
@@ -47,17 +44,17 @@ public class Interface implements Serializable {
 
     public void NoticeRegistQeustion(ArrayList DiaryList) //Type 15
     {
-
+        this.DiaryList = DiaryList;
     }
 
     public void NoticeReFlashDiary(ArrayList DiaryList) //Type 16
     {
-
+        this.DiaryList = DiaryList;
     }
 
     public void NoticeInitializeDiary(ArrayList DiaryList) //Type 17
     {
-
+        this.DiaryList = DiaryList;
     }
 
     public void NoticeNextYMDiary() //Type 18

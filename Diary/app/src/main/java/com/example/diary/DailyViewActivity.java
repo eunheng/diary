@@ -54,7 +54,7 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
     private CalendarDay mCalendarDay;
     private int dpYear, dpMonth, dpDay;
     private Calendar calendar;
-    private String[] questions, diarys;
+    private String[] myQuestions, myDiarys,coupleQuestions,coupleDiarys;
     private String question, diary;
     private ArrayAdapter<String> questionAdpater;
     private String[] questionList;
@@ -160,6 +160,7 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
             dpDay = day;
             calendar.set(year,month,day);
             dp_fixedPicker.updateDate(year,month,year);
+            myQuestions =
             questions = intent.getStringArrayExtra("questions");
             diarys = intent.getStringArrayExtra("diarys");
             tv_day.setText(String.valueOf(year)+"년 "+String.valueOf(month+1)+"월 "+String.valueOf(day)+"일");
