@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
-                        android:text="CoupleID"
+                        android:text="Zzone법사"
                         android:textSize="14sp" />
 
                 </LinearLayout>
