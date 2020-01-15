@@ -51,8 +51,9 @@ public class DiaryAdapter implements onDiaryData {
             e.printStackTrace();
         }
 
-        ArrayList<Diary> results = null;
+
         Diary diary = new Diary();
+        ArrayList<Diary> results = new ArrayList<Diary>();
         ArrayList<String> diaryLists = new ArrayList<String>();
 
        while(diaryLists.size() == 0) {
@@ -61,8 +62,9 @@ public class DiaryAdapter implements onDiaryData {
        }
         if (diaryLists != null) {
             for (int i = 0; i < diaryLists.size(); i++) {
-                diary.splitString(diaryLists.get(i));
-                results.add(diary);
+                Diary diary1 = new Diary();
+                diary1.splitString(diaryLists.get(i));
+                results.add(diary1);
             }
             for (int i = 0; i < results.size(); i++) {
                 String s = results.get(i).getName();
@@ -70,7 +72,9 @@ public class DiaryAdapter implements onDiaryData {
                     myQuestions[results.get(i).getDay() - 1] = results.get(i).getQuestion();
                     myDiarys[results.get(i).getDay() - 1] = results.get(i).getText();
                     tYear = String.valueOf(results.get(i).getYear());
-                    tMonth = String.valueOf(results.get(i).getMonth());
+                    tMonth = String.valueOf(results.get(i).getMonth()+1);
+                    if (tMonth.length()==1)
+                        tMonth = "0"+tMonth;
                     tDay = String.valueOf(results.get(i).getDay());
                     if (!myDiarys[results.get(i).getDay() - 1].isEmpty())
                         myCheckedDiarys[results.get(i).getDay() - 1] = tYear + ',' + tMonth + ',' + tDay;

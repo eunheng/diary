@@ -33,14 +33,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private MaterialCalendarView calendarView;
     private DiaryAdapter diaryAdapter;
-
+    private int count=0;
 
     //val
     final CalendarDay todayDate = CalendarDay.today();
     private int todayYear = todayDate.getYear(), todayMonth = todayDate.getMonth(), todayDay = todayDate.getDay();    //오늘 날짜
     private CalendarDay mCalendarDay;
     private int dpYear=todayYear,dpMonth=todayMonth,dpDay=todayDay;
-    private String myID, coupleID;
+    private String myID, coupleID=null;
     private int key;
 
     @Override
@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             myID = intent.getStringExtra("myID");
             if (intent.getStringExtra("coupleID")!=null){
                 coupleID = intent.getStringExtra("coupleID");
-                coupleID = "Null";
             }
         }
     }
@@ -111,15 +110,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void moveDiary(int year, int month, int day){
         key=2;
         diaryAdapter = new DiaryAdapter(key,myID,coupleID,year,month,day);
-        //startActivity(DailyViewActivity.intentToDaily(this,myID,coupleID,year,month,day,diaryAdapter.myQuestions,diaryAdapter.myDiarys,diaryAdapter.coupleQuestions,diaryAdapter.coupleDiarys));
+        startActivity(DailyViewActivity.intentToDaily(this,myID,coupleID,year,month,day,diaryAdapter.myQuestions,diaryAdapter.myDiarys,diaryAdapter.coupleQuestions,diaryAdapter.coupleDiarys));
         finish();
     }
 
     //일기 저장된 날 체크
     private void checkedDay(int key, int year, int month, int day){
         diaryAdapter = new DiaryAdapter(key,myID,coupleID,year,month,day);
-        String[] result = {"2020,01,18","2020,01,22","2020,01,04","2020,01,29"};
-        //new ApiSimulator(diaryAdapter.checkedDiarys).executeOnExecutor(Executors.newSingleThreadExecutor());
+        //String[] result = {"2020,01,18","2020,01,22","2020,01,04","2020,01,29"};
+        ArrayList<String> Temp = new ArrayList<String>();
+        for(int i=0;i<31;i++){
+            if ( diaryAdapter.myCheckedDiarys[i] != null){
+                Temp.add(diaryAdapter.myCheckedDiarys[i]);
+            }
+        }
+        String[] result = new String[Temp.size()];
+        for(int i =0; i< result.length; i++)
+        {
+            result[i] = Temp.get(i);
+        }
+
+        //new ApiSimulator(diaryAdapter.myCheckedDiarys).executeOnExecutor(Executors.newSingleThreadExecutor());
         new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
 
     }

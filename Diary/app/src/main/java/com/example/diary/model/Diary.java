@@ -29,9 +29,9 @@ public class Diary {
         return "year=" + year +
                 ",month=" + month +
                 ",day=" + day +
-                ",name='" + name +
-                ",question='" + question +
-                ",text='" + text;
+                ",name=" + name +
+                ",question=" + question +
+                ",text=" + text;
     }
 
     public void splitString(String s){
@@ -39,27 +39,27 @@ public class Diary {
         for(int i=0;i<splitUnit.length;i++){
             switch (i){
                 case 0:
-                    splitUnit[i].replace("year=","");
+                    splitUnit[i] = splitUnit[i].replace("year=","");
                     setYear(Integer.valueOf(splitUnit[i]));
                     break;
                 case 1:
-                    splitUnit[i].replace("month=","");
+                    splitUnit[i] = splitUnit[i].replace("month=","");
                     setMonth(Integer.valueOf(splitUnit[i])-1);
                     break;
                 case 2:
-                    splitUnit[i].replace("day=","");
+                    splitUnit[i] = splitUnit[i].replace("day=","");
                     setDay(Integer.valueOf(splitUnit[i]));
                     break;
                 case 3:
-                    splitUnit[i].replace("name=","");
+                    splitUnit[i] = splitUnit[i].replace("name=","");
                     setName(splitUnit[i]);
                     break;
                 case 4:
-                    splitUnit[i].replace("question=","");
+                    splitUnit[i] = splitUnit[i].replace("question=","");
                     setQuestion(splitUnit[i]);
                     break;
                 case 5:
-                    splitUnit[i].replace("text=","");
+                    splitUnit[i] = splitUnit[i].replace("text=","");
                     setText(splitUnit[i]);
                     break;
                 default :
