@@ -100,11 +100,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (nullCheck(coupleID)){
                     Toast.makeText(mContext, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                 }else {
-                    try {
-                        ClientInterface.SetCoupleSender(myID,coupleID);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //try {
+                     //   ClientInterface.SetCoupleSender(myID,coupleID);
+                   // } catch (IOException e) {
+                     //   e.printStackTrace();
+                   // }
                     intent.putExtra("coupleID",coupleID);
                     startActivity(intent);
                     finish();
