@@ -174,6 +174,7 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
             }
             coupleID = intent.getStringExtra("coupleID");
             if (coupleID!=null){
+                tv_coupleID.setText(coupleID);
                 coupleLayout.setVisibility(View.VISIBLE);
                 coupleQuestions = intent.getStringArrayExtra("coupleQuestions");
                 coupleDiarys = intent.getStringArrayExtra("coupleDiarys");
@@ -212,43 +213,41 @@ public class DailyViewActivity extends Activity implements View.OnClickListener,
         updateDiary(year,month,day);
     }
 
-    private void updateDiary(int year, int month, int day){
+    private void updateDiary(int year, int month, int day) {
         int key = 1;
-        tv_day.setText(String.valueOf(year)+"년 "+String.valueOf(month+1)+"월 "+String.valueOf(day)+"일");
-        if (!((year==this.year)||(month==this.month)))
-        {
-            diaryAdapter = new DiaryAdapter(key,myID,coupleID,year,month,day);
+        tv_day.setText(String.valueOf(year) + "년 " + String.valueOf(month + 1) + "월 " + String.valueOf(day) + "일");
+        this.day = day;
+        if (!((year == this.year) || (month == this.month))) {
+            this.year=dpYear;
+
+            diaryAdapter = new DiaryAdapter(key, myID, coupleID, year, month, day);
             myQuestions = diaryAdapter.myQuestions;
             myDiarys = diaryAdapter.myDiarys;
-            myQuestion = diaryAdapter.myQuestions[day-1];
-            myDiary = diaryAdapter.myDiarys[day-1];
-            if(coupleID!=null){
+            myQuestion = diaryAdapter.myQuestions[day - 1];
+            myDiary = diaryAdapter.myDiarys[day - 1];
+            if (coupleID != null) {
                 coupleQuestions = diaryAdapter.coupleQuestions;
                 coupleDiarys = diaryAdapter.coupleDiarys;
-                coupleQuestion = diaryAdapter.coupleQuestions[day-1];
-                coupleDiary = diaryAdapter.coupleDiarys[day-1];
+                coupleQuestion = diaryAdapter.coupleQuestions[day - 1];
+                coupleDiary = diaryAdapter.coupleDiarys[day - 1];
             }
-        }else {
-            myQuestion = myQuestions[day-1];
-            myDiary = myDiarys[day-1];
-            if(coupleID!=null){
-                coupleQuestion = coupleQuestions[day-1];
-                coupleDiary = coupleDiarys[day-1];
+        } else {
+            myQuestion = myQuestions[day - 1];
+            myDiary = myDiarys[day - 1];
+            if (coupleID != null) {
+                coupleQuestion = coupleQuestions[day - 1];
+                coupleDiary = coupleDiarys[day - 1];
             }
 
         }
 
-        if (!TextUtils.isEmpty(myDiary))
-        {
-            et_diary.setText(myDiary);
-            for (int i=0; i<questionList.length; i++)
-                if (questionList[i].equals(myQuestions[day-1]))
-                    sp_question.setSelection(i);
-        }
+        et_diary.setText(myDiary);
+        for (int i = 0; i < questionList.length; i++)
+            if (questionList[i].equals(myQuestions[day - 1]))
+                sp_question.setSelection(i);
 
-        if (coupleID!=null) {
-            if (!TextUtils.isEmpty(coupleDiarys[day-1]))
-                tv_diary.setText(coupleQuestions[day-1]+"\n"+coupleDiarys[day-1]);
+        if (coupleID != null) {
+            tv_diary.setText(coupleQuestions[day - 1] + "\n" + coupleDiarys[day - 1]);
         }
 
     }
